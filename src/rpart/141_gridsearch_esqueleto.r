@@ -103,7 +103,7 @@ dataset <- dataset[clase_ternaria != ""]
 # HT  representa  Hiperparameter Tuning
 dir.create("./exp/", showWarnings = FALSE)
 dir.create("./exp/HT2020/", showWarnings = FALSE)
-archivo_salida <- "./exp/HT2020/gridsearch.txt"
+archivo_salida <- "./exp/HT2020/gridsearch_trial2.txt"
 
 # genero la data.table donde van los resultados del Grid Search
 tb_grid_search <- data.table( max_depth = integer(),
@@ -117,13 +117,28 @@ tb_grid_search <- data.table( max_depth = integer(),
 
 # Para cada combinacion de hiperparametros se hace un llamado para cada semilla a ArbolesMontecarlo y se promedian las ganancias de las semillas (las cuales realizan cada una una particion diferente de train y test).
 # Numero de modelos a construir = 5 * 2 * 6 * 6 * 5 (semillas) = 24200 modelos
-for (vmax_depth in c(6, 10, 14, 25, 30)) {
-  for (cp in c(-1, -0.5)) {
-    for (minbucket in c(5, 20, 100, 400, 800, 1600)) {
-      for (vmin_split in c(5, 20, 100, 400, 800, 1600)) {
+
+# vmax_depth
+a <- c(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14)
+# cp
+b <- c(-1)
+# minbucket
+c <- c(5, 20, 50, 75, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 800, 850, 900, 950, 1000)
+# vmin_split
+d <- c(600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800)
+
+iterations <- length(a) * length(b) * length(c) * length(d)
+count <- 0
+
+for (vmax_depth in a) {
+  for (cp in b) {
+    for (minbucket in c) {
+      for (vmin_split in d) {
 
         # If vmin_split / 2 > minbucket, then minbucket = vmin_split / 2
-        ifelse(vmin_split < 2 * minbucket, vmin_split = 2 * minbucket, vmin_split = vmin_split)
+        if (vmin_split < 2 * minbucket) {
+          vmin_split <- 2 * minbucket
+        }
 
         # notar como se agrega
 
@@ -141,7 +156,11 @@ for (vmax_depth in c(6, 10, 14, 25, 30)) {
         # agrego a la tabla
         tb_grid_search <- rbindlist( 
           list( tb_grid_search, 
-                list( vmax_depth, vmin_split, ganancia_promedio) ) )
+                list( vmax_depth, vmin_split, minbucket, cp, ganancia_promedio) ) )
+        
+        # Actualizo la cuenta de progreso
+        count <- count + 1
+        print(paste("Progreso: ", round((count / iterations) * 100, 2), "%"))
       }
     }
   }
