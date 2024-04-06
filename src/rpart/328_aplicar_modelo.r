@@ -11,12 +11,21 @@ require("rpart.plot")
 # optimización de hiperparametros
 PARAM <- list()
 
+# 1) minsplit=1437, minbucket=407, maxdepth=13, peso_positivos=22.9989592317802, corte=10737
+# 2) minsplit=1479, minbucket=405, maxdepth=13, peso_positivos=22.9679255519513, corte=10599
+# 5) minsplit=1446, minbucket=411, maxdepth=19, peso_positivos=22.8233547306751, corte=10873
+# 10) minsplit=1433, minbucket=391, maxdepth=17, peso_positivos=24.9012018282469, corte=10981
+# 50) minsplit=1038, minbucket=298, maxdepth=13, peso_positivos=19.2162844449898, corte=10788
+# 100) minsplit=1487, minbucket=671, maxdepth=13, peso_positivos=48.5315886549905, corte=9771
+
 # Resultados de la optimizacion BO:
-# minsplit = 1437, minbucket = 407, maxdepth = 13, peso_positivos = 22.9989592317802 (Se juega con la cantidad de registros de corte)
-PARAM$minsplit <- 1437
-PARAM$minbucket <- 407
+
+PARAM$minsplit <- 1487
+PARAM$minbucket <- 671
 PARAM$maxdepth <- 13
-PARAM$peso_positivos <- 22.9989592317802
+PARAM$peso_positivos <- 48.5315886549905
+envios <- 9771
+rank <- 100
 
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
@@ -86,14 +95,13 @@ dapply[ , Predicted := 0L ]
 
 # genero distintas salidas, una para cada corte
 # debe ser recorrido en orden creciente
-for( envios in seq( 7000, 13000, 500 ) ) {
 
-  dapply[ 1:envios, Predicted := 1L]
 
-  # solo los campos para Kaggle
-  fwrite(dapply[, list(numero_de_cliente, Predicted)],
-    file = paste0( "./exp/KA3280/KA3280_001_", envios, ".csv"),
-    sep = ","
-  )
+dapply[ 1:envios, Predicted := 1L]
 
-}
+# solo los campos para Kaggle
+fwrite(dapply[, list(numero_de_cliente, Predicted)],
+  file = paste0( "./exp/KA3280/KA3280_001_", envios, "_", rank, ".csv"),
+  sep = ","
+)
+
