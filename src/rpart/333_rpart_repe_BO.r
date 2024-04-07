@@ -1,6 +1,12 @@
 # Optimizacion Bayesiana de hiperparametros de  rpart
 # 10-repeated 5-fold cross validation
 
+# Usando OB para encontrar los mejores hiperparametros de rpart
+# 10-repeated 5-fold cross validation
+#para cada una de las 50 iteraciones de OB
+# En cada una de las 50 iteraciones de OB
+# Prueba una combinacion de hiperparametros
+
 # limpio la memoria
 rm(list = ls()) # remove all objects
 gc() # garbage collection
@@ -300,3 +306,8 @@ if (!file.exists(archivo_BO)) {
   run <- mboContinue(archivo_BO)
 }
 # retomo en caso que ya exista
+
+# envio un mensaje de whatsapp para notificar finalizacion del script
+setwd("~/labo2024v1/src/rpart/") # Establezco el Working Directory
+source("twilio.r")
+wp("Tu script ha finalizado")
