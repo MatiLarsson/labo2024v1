@@ -270,3 +270,7 @@ if (!file.exists(archivo_BO)) {
   run <- mboContinue(archivo_BO)
 }
 # retomo en caso que ya exista
+
+# envio un mensaje de whatsapp para notificar finalizacion del script
+source("~/labo2024v1/src/rpart/twilio.r")
+wp("Tu script ha finalizado")
