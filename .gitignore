@@ -184,5 +184,4 @@ project/target
 .vscode/settings.json
 
 # Twilio whatsapp messager
-
-twilio.r
+twilio.env
