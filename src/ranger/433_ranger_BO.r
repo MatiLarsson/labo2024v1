@@ -196,7 +196,7 @@ EstimarGanancia_ranger <- function(x) {
   }
 
 # cat progress:
-  cat("Se completo iteracion: ", GLOBAL_iteracion, "de", PARAM$hyperparametertuning$iteraciones, sep = "")
+  cat("Se completo iteracion: ", GLOBAL_iteracion, " de ", PARAM$hyperparametertuning$iteraciones, "\n", sep = "")
 
   return(ganancia)
 }
