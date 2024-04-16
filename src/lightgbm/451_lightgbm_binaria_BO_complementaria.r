@@ -152,7 +152,6 @@ EstimarGanancia_lightgbm <- function(x) {
     num_iterations = 9999, # valor grande, lo limita early_stopping_rounds
     force_row_wise = TRUE, # para evitar warning
     seed = ksemilla_azar1,
-    cat_col = dtrain.select_dtypes('object').columns.tolist(),
     is_unbalance = TRUE
   )
 
@@ -344,6 +343,6 @@ cat("\n\nLa optimizacion Bayesiana ha terminado\n")
 
 
 # envio un mensaje de whatsapp para notificar finalizacion del script
-setwd("~/labo2024v1/src/") # Establezco el Working Directory
+setwd("~/buckets/b1/automation/") # Establezco el Working Directory
 source("twilio.r")
 wp()
