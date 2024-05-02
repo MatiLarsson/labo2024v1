@@ -2,7 +2,7 @@
 # para aprender lo conceptual, sin ensuciarse las manos
 
 # Nombre del experimento
-suffix <- "AAA"
+exp_name <- "AAA"
 
 # limpio la memoria
 rm(list = ls(all.names = TRUE)) # remove all objects
@@ -317,7 +317,7 @@ ZZ_final_guantesblancos <- function( pmyexp, pinputexps, pserver="local")
 # Que predice 202109
 # y ya genera archivos para Kaggle
 
-corrida_guantesblancos_202109 <- function( pnombrewf, pvirgen=FALSE )
+corrida_guantesblancos_202109 <- function( pnombrewf, suffix, pvirgen=FALSE)
 {
   if( -1 == exp_wf_init( pnombrewf, pvirgen) ) return(0) # linea fija
 
@@ -344,7 +344,7 @@ corrida_guantesblancos_202109 <- function( pnombrewf, pvirgen=FALSE )
 #   NO genera archivos para Kaggle
 # por favor notal como este script parte de FE0001
 
-corrida_guantesblancos_202107 <- function( pnombrewf, pvirgen=FALSE )
+corrida_guantesblancos_202107 <- function( pnombrewf, suffix, pvirgen=FALSE )
 {
   if( -1 == exp_wf_init( pnombrewf, pvirgen) ) return(0) # linea fija
 
@@ -366,10 +366,10 @@ corrida_guantesblancos_202107 <- function( pnombrewf, pvirgen=FALSE )
 
 # Hago primero esta corrida que me genera los experimentos
 # DT0001, CA0001, DR0001, FE0001, TS0001, HT0001 y ZZ0001
-corrida_guantesblancos_202109( paste0("gb-", suffix) )
+corrida_guantesblancos_202109( paste0("gb-", exp_name), exp_name )
 
 
 # Luego partiendo de  FE0001
 # genero TS0002, HT0002 y ZZ0002
 
-#corrida_guantesblancos_202107( paste0("gb-2-", suffix) )
+#corrida_guantesblancos_202107( paste0("gb-2-", exp_name), exp_name )
