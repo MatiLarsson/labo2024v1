@@ -1,6 +1,9 @@
 # Corrida general del Workflow de Guantes Blancos
 # para aprender lo conceptual, sin ensuciarse las manos
 
+# Nombre del experimento
+suffix <- "AAA"
+
 # limpio la memoria
 rm(list = ls(all.names = TRUE)) # remove all objects
 gc(full = TRUE) # garbage collection
@@ -318,18 +321,18 @@ corrida_guantesblancos_202109 <- function( pnombrewf, pvirgen=FALSE )
 {
   if( -1 == exp_wf_init( pnombrewf, pvirgen) ) return(0) # linea fija
 
-  DT_incorporar_dataset_default( "DT-AAA", "competencia_2024.csv.gz")
-  CA_catastrophe_default( "CA-AAA", "DT-AAA" )
+  DT_incorporar_dataset_default( paste0("DT-", suffix)), "competencia_2024.csv.gz")
+  CA_catastrophe_default( paste0("CA-", suffix), paste0("DT-", suffix) )
 
-  DR_drifting_guantesblancos( "DR-AAA", "CA-AAA" )
-  FE_historia_guantesblancos( "FE-AAA", "DR-AAA" )
+  DR_drifting_guantesblancos( paste0("DR-", suffix), paste0("CA-", suffix) )
+  FE_historia_guantesblancos( paste0("FE-", suffix), paste0("DR-", suffix) )
 
-  TS_strategy_guantesblancos_202109( "TS-AAA", "FE-AAA" )
+  TS_strategy_guantesblancos_202109( paste0("TS-", suffix), paste0("FE-", suffix) )
 
-  HT_tuning_guantesblancos( "HT-AAA", "TS-AAA" )
+  HT_tuning_guantesblancos( paste0("HT-", suffix), paste0("TS-", suffix) )
 
   # El ZZ depente de HT y TS
-  ZZ_final_guantesblancos( "ZZ-AAA", c("HT0001","TS-AAA") )
+  ZZ_final_guantesblancos( paste0("ZZ-", suffix), c(paste0("HT-", suffix),paste0("TS-", suffix)) )
 
 
   exp_wf_end( pnombrewf, pvirgen ) # linea fija
@@ -346,12 +349,12 @@ corrida_guantesblancos_202107 <- function( pnombrewf, pvirgen=FALSE )
   if( -1 == exp_wf_init( pnombrewf, pvirgen) ) return(0) # linea fija
 
   # Ya tengo corrido FE0001 y parto de alli
-  TS_strategy_guantesblancos_202107( "TS0002", "FE0001" )
+  TS_strategy_guantesblancos_202107( paste0("TS-2-", suffix), paste0("FE-", suffix) )
 
-  HT_tuning_guantesblancos( "HT0002", "TS0002" )
+  HT_tuning_guantesblancos( paste0("HT-2-", suffix), paste0("TS-2-", suffix) )
 
   # El ZZ depente de HT y TS
-  ZZ_final_guantesblancos( "ZZ0002", c("HT0002", "TS0002") )
+  ZZ_final_guantesblancos( paste0("ZZ-2-", suffix), c(paste0("HT-2-", suffix), paste0("TS-2-", suffix)) )
 
 
   exp_wf_end( pnombrewf, pvirgen ) # linea fija
@@ -363,10 +366,10 @@ corrida_guantesblancos_202107 <- function( pnombrewf, pvirgen=FALSE )
 
 # Hago primero esta corrida que me genera los experimentos
 # DT0001, CA0001, DR0001, FE0001, TS0001, HT0001 y ZZ0001
-corrida_guantesblancos_202109( "gb-AAA" )
+corrida_guantesblancos_202109( paste0("gb-", suffix) )
 
 
 # Luego partiendo de  FE0001
 # genero TS0002, HT0002 y ZZ0002
 
-#corrida_guantesblancos_202107( "gb02" )
+#corrida_guantesblancos_202107( paste0("gb-2-", suffix) )
