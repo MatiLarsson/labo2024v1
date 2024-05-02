@@ -1,8 +1,7 @@
 # Corrida general del Workflow de Guantes Blancos
 # para aprender lo conceptual, sin ensuciarse las manos
 
-# Nombre del experimento
-exp_name <- "AAA"
+
 
 # limpio la memoria
 rm(list = ls(all.names = TRUE)) # remove all objects
@@ -363,6 +362,8 @@ corrida_guantesblancos_202107 <- function( pnombrewf, suffix, pvirgen=FALSE )
 #------------------------------------------------------------------------------
 #Aqui empieza el programa
 
+# Nombre del experimento
+exp_name <- "AAA"
 
 # Hago primero esta corrida que me genera los experimentos
 # DT0001, CA0001, DR0001, FE0001, TS0001, HT0001 y ZZ0001
