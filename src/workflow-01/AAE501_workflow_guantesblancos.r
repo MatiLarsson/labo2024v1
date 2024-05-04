@@ -187,7 +187,7 @@ TS_strategy_guantesblancos_202109 <- function( pmyexp, pinputexps, pserver="loca
 
 
   param_local$train$training <- c(202103, 202102, 202101, 202012)
-  param_local$train$validation <- c(202104)
+  param_local$train$validation <- c(202103, 202102, 202101, 202012)
   param_local$train$testing <- c(202105)
 
   # Atencion  0.1  de  undersampling de la clase mayoritaria,  los CONTINUA
@@ -363,7 +363,7 @@ corrida_guantesblancos_202107 <- function( pnombrewf, suffix, pvirgen=FALSE )
 #Aqui empieza el programa
 
 # Nombre del experimento
-exp_name <- "AAB"
+exp_name <- "AAE"
 
 # Hago primero esta corrida que me genera los experimentos
 # DT0001, CA0001, DR0001, FE0001, TS0001, HT0001 y ZZ0001
