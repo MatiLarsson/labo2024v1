@@ -97,7 +97,7 @@ DR_drifting_baseline <- function( pmyexp, pinputexps, pserver="local")
   param_local$variables_intrames <- TRUE
   # valores posibles
   #  "ninguno", "rank_simple", "rank_cero_fijo", "deflacion", "estandarizar"
-  param_local$metodo <- "rank_cero_fijo"
+  param_local$metodo <- "rank_simple"
 
   return( exp_correr_script( param_local ) ) # linea fija
 }
@@ -161,11 +161,11 @@ TS_strategy_baseline_202109 <- function( pmyexp, pinputexps, pserver="local")
 
 
   param_local$future <- c(202109)
-  param_local$final_train <- c(202107, 202106, 202105, 202104, 202103, 202102, 202002, 202001, 201912, 201911, 201910, 201909, 201908, 201907, 201906, 201905)
+  param_local$final_train <- c(202107, 202106, 202105, 202104, 202103, 202102, 202101, 202012, 202011, 202010, 202009, 202008, 202002, 202001, 201912, 201911, 201910, 201909)
 
 
-  param_local$train$training <- c(202103, 202102, 202002, 202001, 201912, 201911, 201910, 201909, 201908, 201907, 201906, 201905, 201904, 201903, 201902, 201901)
-  param_local$train$validation <- c(202106, 202105, 202104)
+  param_local$train$training <- c(202105, 202104, 202103, 202102, 202101, 202012, 202011, 202010, 202009, 202008, 202002, 202001, 201912, 201911, 201910, 201909, 201908, 201907)
+  param_local$train$validation <- c(202106)
   param_local$train$testing <- c(202107)
 
   # undersampling  baseline
@@ -369,7 +369,7 @@ corrida_baseline_semillerio_202107 <- function( pnombrewf, suffix, pvirgen=FALSE
 #Aqui empieza el programa
 
 # Nombre del experimento
-exp_name <- "SAA"
+exp_name <- "SAB"
 
 corrida_baseline_semillerio_202109( paste0("basem01-", exp_name), exp_name )
 
