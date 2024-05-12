@@ -21,8 +21,8 @@ envg$EXPENV$datasets_dir <- "~/buckets/b1/datasets/"
 envg$EXPENV$arch_sem <- "mis_semillas.txt"
 
 # default
-envg$EXPENV$gcloud$RAM <- 64
-envg$EXPENV$gcloud$cCPU <- 8
+envg$EXPENV$gcloud$RAM <- 624
+envg$EXPENV$gcloud$cCPU <- 12
 
 #------------------------------------------------------------------------------
 # Error catching
@@ -91,7 +91,7 @@ DR_drifting_baseline <- function( pmyexp, pinputexps, pserver="local")
   if( -1 == (param_local <- exp_init( pmyexp, pinputexps, pserver ))$resultado ) return( 0 )# linea fija
 
 
-  param_local$meta$script <- "/src/workflow-01/z531_DR_corregir_drifting.r"
+  param_local$meta$script <- "/src/workflow-01/531_DR_corregir_drifting.r"
 
   # No me engraso las manos con Feature Engineering manual
   param_local$variables_intrames <- TRUE
@@ -119,21 +119,21 @@ FE_historia_baseline <- function( pmyexp, pinputexps, pserver="local")
   param_local$Tendencias1$run <- TRUE  # FALSE, no corre nada de lo que sigue
   param_local$Tendencias1$ventana <- 6
   param_local$Tendencias1$tendencia <- TRUE
-  param_local$Tendencias1$minimo <- FALSE
-  param_local$Tendencias1$maximo <- FALSE
-  param_local$Tendencias1$promedio <- FALSE
-  param_local$Tendencias1$ratioavg <- FALSE
-  param_local$Tendencias1$ratiomax <- FALSE
+  param_local$Tendencias1$minimo <- TRUE
+  param_local$Tendencias1$maximo <- TRUE
+  param_local$Tendencias1$promedio <- TRUE
+  param_local$Tendencias1$ratioavg <- TRUE
+  param_local$Tendencias1$ratiomax <- TRUE
 
   # baseline
-  param_local$Tendencias2$run <- FALSE
-  param_local$Tendencias2$ventana <- 6
+  param_local$Tendencias2$run <- TRUE
+  param_local$Tendencias2$ventana <- 3
   param_local$Tendencias2$tendencia <- TRUE
-  param_local$Tendencias2$minimo <- FALSE
-  param_local$Tendencias2$maximo <- FALSE
-  param_local$Tendencias2$promedio <- FALSE
-  param_local$Tendencias2$ratioavg <- FALSE
-  param_local$Tendencias2$ratiomax <- FALSE
+  param_local$Tendencias2$minimo <- TRUE
+  param_local$Tendencias2$maximo <- TRUE
+  param_local$Tendencias2$promedio <- TRUE
+  param_local$Tendencias2$ratioavg <- TRUE
+  param_local$Tendencias2$ratiomax <- TRUE
 
 
   # vaseline
@@ -161,15 +161,15 @@ TS_strategy_baseline_202109 <- function( pmyexp, pinputexps, pserver="local")
 
 
   param_local$future <- c(202109)
-  param_local$final_train <- c(202107, 202106, 202105, 202104, 202103, 202102, 202101, 202012, 202011)
+  param_local$final_train <- c(202107, 202106, 202105, 202104, 202103, 202102, 202002, 202001, 201912, 201911, 201910, 201909, 201908, 201907, 201906, 201905)
 
 
-  param_local$train$training <- c(202105, 202104, 202103, 202102, 202101, 202012, 202011, 202010, 202009)
-  param_local$train$validation <- c(202106)
+  param_local$train$training <- c(202103, 202102, 202002, 202001, 201912, 201911, 201910, 201909, 201908, 201907, 201906, 201905, 201904, 201903, 201902, 201901)
+  param_local$train$validation <- c(202106, 202105, 202104)
   param_local$train$testing <- c(202107)
 
   # undersampling  baseline
-  param_local$train$undersampling <- 0.2
+  param_local$train$undersampling <- 0.4
 
   return( exp_correr_script( param_local ) ) # linea fija
 }
@@ -241,10 +241,10 @@ HT_tuning_baseline <- function( pmyexp, pinputexps, pserver="local")
 
     extra_trees = FALSE,
     # Quasi  baseline, el minimo learning_rate es 0.02 !!
-    learning_rate = c( 0.02, 0.5 ),
-    feature_fraction = c( 0.5, 0.9 ),
-    num_leaves = c( 8L, 2048L,  "integer" ),
-    min_data_in_leaf = c( 100L, 2000L, "integer" )
+    learning_rate = c( 0.08, 0.25 ),
+    feature_fraction = c( 0.35, 0.65 ),
+    num_leaves = c( 500L, 1500L,  "integer" ),
+    min_data_in_leaf = c( 10L, 400L, "integer" )
   )
 
 
@@ -266,7 +266,7 @@ ZZ_final_baseline <- function( pmyexp, pinputexps, pserver="local")
   param_local$modelos_rank <- c(1)
 
   param_local$kaggle$envios_desde <-  9500L
-  param_local$kaggle$envios_hasta <- 11500L
+  param_local$kaggle$envios_hasta <- 16000L
   param_local$kaggle$envios_salto <-   500L
 
   # para el caso que deba graficar
@@ -292,7 +292,7 @@ ZZ_final_semillerio_baseline <- function( pmyexp, pinputexps, pserver="local")
   param_local$modelos_rank <- c(1)
 
   param_local$kaggle$envios_desde <-  9500L
-  param_local$kaggle$envios_hasta <- 11500L
+  param_local$kaggle$envios_hasta <- 16000L
   param_local$kaggle$envios_salto <-   500L
 
   # para el caso que deba graficar
@@ -302,7 +302,7 @@ ZZ_final_semillerio_baseline <- function( pmyexp, pinputexps, pserver="local")
 
   # El parametro fundamental de semillerio
   # Es la cantidad de LightGBM's que ensamblo
-  param_local$semillerio <- 20
+  param_local$semillerio <- 50
 
   return( exp_correr_script( param_local ) ) # linea fija
 }

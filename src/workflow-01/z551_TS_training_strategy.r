@@ -64,7 +64,6 @@ dataset <- fread(PARAM$dataset)
 
 setorder(dataset, foto_mes, numero_de_cliente)
 
-
 # grabo los datos del futuro
 fwrite(dataset[foto_mes %in% PARAM$future, ],
   file = "dataset_future.csv.gz",
